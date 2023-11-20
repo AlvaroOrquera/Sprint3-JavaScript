@@ -1,30 +1,44 @@
-import { filtrarPorTitulo, filtrarporgenero, crearTarjeta, cardFiltrada, createTemplate } from '../module/funciones.js'
-import { crearTarjeta } from './function.js'
-const contenedorFavs = document.getElementById("contenedorFavs")
+import { crearTemplate} from "./function.js";
+
+
+
+
 
 const url = `https://moviestack.onrender.com/api/movies`
-const opciones = {
+const key = `0ff70d54-dc0b-4262-9c3d-776cb0f34dbd`
+
+const options = {
     headers: {
-        "x-api-key": '0ff70d54-dc0b-4262-9c3d-776cb0f34dbd'
+        'X-API-KEY': key
     }
 }
-fetch(url, opciones)
-    .then(Response => Response.json())
-    .then(data => {
-        const movies = data.movies
-        console.log(data.movies)
-        const recuLocalStorage = JSON.parse(localStorage.getItem("like"))
-        const favorite = movies.filter(movie => recuLocalStorage.some(favs => favs.id === movie.id))
-        console.log(favorite);
-        contenedorFavs.innerHTML += createTemplate(favorite)
-        checkboxes.addEventListener('change', () => {
-            const filtradoporgenero = filtrarporgenero(movies, checkboxes.value)
-            const filtradoPorTitulo = filtrarPorTitulo(filtradoporgenero, inputBusqueda.value)
-            cardFiltrada(filtradoPorTitulo, contenedor, crearTarjeta)
-        })
-        inputBusqueda.addEventListener("keyup", () => {
-            const filtradoPorTitulo = filtrarPorTitulo(movies, inputBusqueda.value)
-            cardFiltrada(filtradoPorTitulo, contenedor, crearCard)
-        })
-    })
 
+let allMovies
+
+fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+        const movies = data.movies.filter(movie => favoritos.includes(movie.id));
+        contenedorFavs.innerHTML += crearTemplate(movies)
+        allMovies=data.movies
+    })
+const contenedorFavs = document.getElementById('contenedorDeFavoritos');
+
+let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+
+contenedorFavs.addEventListener("click", (event) => {
+    const IdBtn = event.target.dataset.id;
+    console.log(IdBtn)
+    if (IdBtn) {
+        if (!favoritos.includes(IdBtn)) {
+            favoritos.push(IdBtn);
+            localStorage.setItem("favoritos", JSON.stringify(favoritos));
+
+        } else {
+            favoritos.splice(favoritos.indexOf(IdBtn), 1);
+            localStorage.setItem("favoritos", JSON.stringify(favoritos));
+        } 
+        const movies = allMovies.filter(movie => favoritos.includes(movie.id));
+        contenedorFavs.innerHTML = crearTemplate(movies)
+    }
+})

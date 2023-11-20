@@ -56,35 +56,25 @@ fetch(url, options)
                 return result.filter(movie => currentFilter.includes(movie));
             }, movies);
         }
-
-        //btn
-        const buttonFavs = document.querySelectorAll(".btnFavs")
-const articleFavs = document.querySelectorAll(".articleFavs")
-const imageFavs = document.querySelectorAll(".imageFavs")
-buttonFavs.forEach((button, index) => {
-    let contStorage = JSON.parse(localStorage.getItem("like")) || []
-    button.addEventListener('click', () => {
-        contStorage = JSON.parse(localStorage.getItem("like")) || []
-        const contenedorId = articleFavs[index].dataset.id;
-        const comprobarLocalStorag = contStorage.some(item => item.id === contenedorId)
-        console.log(contenedorId);
-        const imgFavs = imageFavs[index].dataset.id;
-        if (!comprobarLocalStorag) {
-            imageFavs[index].src = "./images/corazon_rojo.png"
-            contStorage.push({ id: contenedorId })
-            console.log(contStorage);
-        }
-        else {
-            if (comprobarLocalStorag) {
-                contStorage = contStorage.filter(item => item.id !== contenedorId)
-                imageFavs[index].src = "../images/corazcon_vacio.png"
-            }
-        }
-        localStorage.setItem("like", JSON.stringify(contStorage))
-    });
-})
     })
 
+const contendor = document.getElementById('Alvapeli');
 
+contendor.addEventListener("click", (event) => {
+    const IdBtn = event.target.dataset.id;
+    console.log(IdBtn)
+    if (IdBtn) {
+        if (!favoritos.includes(IdBtn)) {
+            favoritos.push(IdBtn);
+            localStorage.setItem("favoritos", JSON.stringify(favoritos));
+
+        } else {
+            favoritos.splice(favoritos.indexOf(IdBtn), 1);
+            localStorage.setItem("favoritos", JSON.stringify(favoritos));
+        }
+    }
+})
+
+let favoritos = [];
 
 
