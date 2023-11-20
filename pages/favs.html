@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="shortcut icon" href="../images/recursos/Moviestack_favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>MovieStack</title>
+</head>
+
+<body class="bg-slate-700">
+    <header class="flex bg-gradient-to-t from-slate-700 to-slate-900 justify-between min-w-full ">
+        <div class="flex">
+            <img src="../images/logotipo.png" alt="logotipo" class="flex w-20 rounded-2xl">
+            <h1 class="flex text-white  text-4xl mx-2.5 items-center">MovieStack</h1>
+        </div>
+        <div class="flex">
+            <nav class=" flex mx-2.5 text-white text-lg items-center ">
+                <ul class=" flex  ">
+                    <li class=" hover:bg-gray-700 px-1.5 py-1 text-white rounded-3xl ">
+                        <a href=" ./index.html">HOME</a>
+                    </li>
+                    <li class="hover:bg-gray-700 px-1.5 py-1 text-white rounded-3xl">
+                        <a href="./movie.html">MOVIES</a>
+                    </li>
+                    <li class=" hover:bg-gray-700 px-1.5 py-1 text-white rounded-3xl">
+                        <a href="#">FAVS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="min-h-screen">
+        <div id="contenedorDeFavoritos">
+        </div>
+    </main>
+    <footer
+        class="flex bg-gradient-to-t from-slate-900 to-slate-700 mt-3 text-center justify-center text-white text-xl">
+        <h2>Alvaro Orquera-Cohort 52</h2>
+    </footer>
+    
+    <script type="module" src="../style/tailwind.config.js"></script>
+    <script type="module" src="../pages.js/favs.js"></script>
+</body>
+
+</html>
